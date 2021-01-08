@@ -11,13 +11,6 @@
   height: 100vh;
 }
 
-.EditPanel {
-  grid-area: editpanel;
-  width: 100%;
-  height: 100%;
-  background-color: #bbb;
-}
-
 .PreviewWindow{
   grid-area: preview;
   width: 100%;
