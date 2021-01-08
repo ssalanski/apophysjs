@@ -1,21 +1,39 @@
 import React from 'react';
 import './EditPanel.css';
 
-function EditPanel() {
-  // Return the EditPanel component.
-  return (
-    <div className="EditPanel">
-      <h2>Transforms</h2>
-      <button>New Transform</button>
+class EditPanel extends React.Component {
+
+  renderTransformsList() {
+    const transforms = ['a','b','c','d'];
+    return (
       <ul>
-        <li><span>t-form 1</span><span>123 45 55 14515 145 thingy asdfqwer</span></li>
-        <li><span>t-form 2</span><span>123 45 55 14515 145 thingy asdfqwer</span></li>
-        <li><span>t-form 3</span><span>123 45 55 14515 145 thingy asdfqwer</span></li>
-        <li><span>t-form 4</span><span>123 45 55 14515 145 thingy asdfqwer</span></li>
-        <li><span>t-form 5</span><span>123 45 55 14515 145 thingy asdfqwer</span></li>
+        {transforms.map( (transform, index) =>
+          <li>transform {index}</li>
+        )}
       </ul>
-    </div>
-  );
+    );
+  }
+
+  render() {
+    return (
+      <div className="EditPanel">
+        <h2>Transforms</h2>
+        <button>New Transform</button>
+        {this.renderTransformsList()}
+      </div>
+    );
+  }
+}
+
+class TransformEntry extends React.Component {
+  render() {
+    return (
+      <li>
+        <span>t-form #</span>
+        <span>bla bla bla</span>
+      </li>
+    );
+  }
 }
 
 export default EditPanel;
