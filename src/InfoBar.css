@@ -5,3 +5,21 @@
   height: 100%;
   background-color: #333;
 }
+
+.button-container {
+  margin: 10px;
+  display: flex;
+}
+
+.button-container > button {
+  border: none;
+  margin: 5px;
+  padding: 8px;
+  background-color: #999;
+  font-weight: bold;
+  transition-duration: 0.4s;
+}
+
+.button-container > button:hover {
+  background-color: #bbb;
+}
