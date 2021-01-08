@@ -1,45 +1,33 @@
 .App {
-  text-align: center;
-}
-.App code {
-  background: #FFF3;
-  padding: 4px 8px;
-  border-radius: 4px;
-}
-.App p {
-  margin: 0.4rem;
-}
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-areas:
+          "infobar editpanel"
+	  "preview editpanel"
+	  "preview editpanel";
+  grid-template-columns: auto 500px;
+  grid-template-rows: 100px auto;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-items: center;
+  height: 100vh;
 }
 
-.App-link {
-  color: #61dafb;
+.InfoBar {
+  grid-area: infobar;
+  width: 100%;
+  height: 100%;
+  background-color: #333;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.EditPanel {
+  grid-area: editpanel;
+  width: 100%;
+  height: 100%;
+  background-color: #bbb;
+}
+
+.PreviewWindow{
+  grid-area: preview;
+  width: 100%;
+  height: 100%;
+  background-color: #111;
 }
