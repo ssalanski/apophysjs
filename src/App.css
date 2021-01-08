@@ -1,9 +1,13 @@
+body {
+  overflow: hidden;
+}
+
 .App {
   display: grid;
   grid-template-areas:
           "infobar editpanel"
-	  "preview editpanel"
-	  "preview editpanel";
+          "preview editpanel"
+          "preview editpanel";
   grid-template-columns: auto 500px;
   grid-template-rows: 100px auto;
   align-items: center;

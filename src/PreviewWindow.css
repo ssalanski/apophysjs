@@ -3,10 +3,7 @@
   grid-area: preview;
   width: 100%;
   height: 100%;
-  background-color: #111;
+  background-color: #777;
 }
 
-.PreviewWindow > canvas {
-  width: 100%;
-  height: 100%;
-}
+.PreviewWindow > canvas { }
