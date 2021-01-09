@@ -1,25 +1,13 @@
 import React from 'react';
 import './EditPanel.css';
-import Transformation from './Transformation.js';
 
 class EditPanel extends React.Component {
   constructor(props) {
     super(props);
-    let transforms = new Array();
-    transforms.push( new Transformation([1,0],[0,1],[0,0],[1,0,0]) );
-    this.state = { transforms };
-  }
-
-  addTransform = () => {
-    this.setState( (state, props) => {
-      let transforms = [...state.transforms];
-      transforms.push( new Transformation([1,0],[0,1],[0,0], [1,0,0]) );
-      return { transforms };
-    });
   }
 
   renderTransformsList() {
-    const transformEntries = this.state.transforms.map( (transform, idx) =>
+    const transformEntries = this.props.transforms.map( (transform, idx) =>
           <TransformEntry key={idx.toString()} transform={transform} />
     );
     return (
@@ -33,7 +21,7 @@ class EditPanel extends React.Component {
     return (
       <div className="EditPanel">
         <h2>Transforms</h2>
-        <button onClick={this.addTransform}>New Transform</button>
+        <button onClick={this.props.addTransform}>New Transform</button>
         {this.renderTransformsList()}
       </div>
     );
