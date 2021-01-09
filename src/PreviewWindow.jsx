@@ -7,22 +7,16 @@ class PreviewWindow extends React.Component {
     this.canvasRef = React.createRef();
     this.state = {
       context: null,
-      offsetX: 0,
-      offsetY: 0
+      canvasOffsets: [0, 0, 100, 100],
+      viewState: false,
+      viewport: {
+        x0: -1,
+        y0: -1,
+        xw: 2,
+        yh: 2
+      }
     };
   }
-
-  testCanvas = ({clientX, clientY}) => {
-    let { context, offsetX, offsetY } = this.state;
-    /*const x = clientX - offsetX;
-    const y = clientY - offsetY;
-    context.beginPath();
-    context.arc(x,y,10,0,2*Math.PI);
-    context.fill();
-    */
-
-    this.props.flameGenerator.drawPts(context);
-  };
 
   componentDidMount() {
     if (this.canvasRef.current) {
@@ -35,13 +29,15 @@ class PreviewWindow extends React.Component {
       canvasRef.width = containerWidth;
       canvasRef.height = containerHeight;
 
-      const offsetX = canvasRef.parentElement.offsetLeft;
-      const offsetY = canvasRef.parentElement.offsetTop;
+      const canvasOffsets= [canvasRef.parentElement.offsetLeft,
+                      canvasRef.parentElement.offsetTop,
+                      containerWidth,
+                      containerHeight];
       
       const context = canvasRef.getContext('2d');
       if (context) {
-        this.setState( { context, offsetX, offsetY } );
-        this.props.flameGenerator.setView(offsetX, offsetY, containerWidth, containerHeight);
+        this.props.flameGenerator.setView(this.state.viewport, canvasOffsets);
+        this.setState( { context, canvasOffsets } );
         // test shapes
         if(context) {
           context.fillRect(5,5,100,100);
@@ -53,11 +49,42 @@ class PreviewWindow extends React.Component {
       }
     }
   }
+  
+  viewMouseDown = ({clientX, clientY}) => {
+    this.setState({ viewState: { 'panning': [clientX,clientY,this.state.viewport.x0,this.state.viewport.y0] } });
+  }
+
+  viewMouseUp = () => {
+    this.setState({ viewState: false });
+    this.props.flameGenerator.setView(this.state.viewport,this.state.canvasOffsets);
+    this.state.context.clearRect(0,0,this.state.canvasOffsets[2],this.state.canvasOffsets[3]);
+    for (const pt of this.props.flameGenerator.genPts()) {
+      this.state.context.fillRect(pt[0],pt[1],2,2);
+    }
+  }
+
+  viewMouseMove = ({clientX,clientY}) => {
+    if (!this.state.viewState)
+      return;
+    const [startX,startY,startMinX,startMinY] = this.state.viewState.panning;
+    const [w, h] = this.state.canvasOffsets.slice(2);
+    let {x0,y0,xw,yh} = this.state.viewport;
+    const dx = (clientX - startX)/w * (xw);
+    const dy = (clientY - startY)/h * (yh);
+    x0 = startMinX - dx;
+    y0 = startMinY - dy;
+    this.setState({ viewport: { x0, y0, xw, yh} } );
+  }
 
   render() {
     return (
       <div className="PreviewWindow">
-        <canvas id="previewCanvas" ref={this.canvasRef} onClick={this.testCanvas}></canvas>
+        <canvas id="previewCanvas" 
+          ref={this.canvasRef}
+          onMouseDown={this.viewMouseDown}
+          onMouseUp={this.viewMouseUp}
+          onMouseMove={this.viewMouseMove}
+          ></canvas>
       </div>
     );
   }
