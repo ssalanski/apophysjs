@@ -16,7 +16,7 @@ class App extends React.Component {
   addTransform = () => {
     this.setState( (state, props) => {
       let transforms = [...state.transforms];
-      transforms.push( new Transformation([1,0],[0,1],[0,0], [1,0,0]) );
+      transforms.push( new Transformation([1,0],[0,1],[0,0], [1,1,1]) );
       return { transforms };
     });
   }
