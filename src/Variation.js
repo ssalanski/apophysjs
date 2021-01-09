@@ -5,6 +5,32 @@ export default class Variation {
   }
 }
 
+class SierpinskyOne {
+  constructor() {
+    this.name = 'SierpinskyOne';
+  }
+  fn(x,y,c) {
+    return [x/2,y/2,c];
+  }
+}
+class SierpinskyTwo {
+  constructor() {
+    this.name = 'SierpinskyTwo';
+  }
+  fn(x,y,c) {
+    return [(x+1)/2,y/2,c];
+  }
+}
+class SierpinskyThree {
+  constructor() {
+    this.name = 'SierpinskyThree';
+  }
+  fn(x,y,c) {
+    return [x/2,(y+1)/2,c];
+  }
+}
+  
+
 class LinearVariation {
   constructor() {
     this.name = 'Linear';
@@ -24,4 +50,4 @@ class SinusoidalVariation extends Variation {
   }
 }
 
-export { LinearVariation, SinusoidalVariation };
+export { LinearVariation, SinusoidalVariation, SierpinskyOne, SierpinskyTwo, SierpinskyThree };

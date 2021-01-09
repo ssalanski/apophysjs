@@ -14,11 +14,14 @@ class PreviewWindow extends React.Component {
 
   testCanvas = ({clientX, clientY}) => {
     let { context, offsetX, offsetY } = this.state;
-    const x = clientX - offsetX;
+    /*const x = clientX - offsetX;
     const y = clientY - offsetY;
     context.beginPath();
     context.arc(x,y,10,0,2*Math.PI);
     context.fill();
+    */
+
+    this.props.flameGenerator.drawPts(context);
   };
 
   componentDidMount() {
@@ -38,6 +41,7 @@ class PreviewWindow extends React.Component {
       const context = canvasRef.getContext('2d');
       if (context) {
         this.setState( { context, offsetX, offsetY } );
+        this.props.flameGenerator.setView(offsetX, offsetY, containerWidth, containerHeight);
         // test shapes
         if(context) {
           context.fillRect(5,5,100,100);

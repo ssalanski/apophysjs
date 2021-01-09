@@ -3,6 +3,7 @@ import InfoBar from './InfoBar.js';
 import EditPanel from './EditPanel.js';
 import PreviewWindow from './PreviewWindow.js';
 import Transformation from './Transformation.js';
+import FlameGenerator from './flame.js';
 import './App.css';
 
 class App extends React.Component {
@@ -10,14 +11,18 @@ class App extends React.Component {
     super(props);
     let transforms = new Array();
     transforms.push( new Transformation([1,0],[0,1],[0,0],[1,0,0]) );
-    this.state = { transforms };
+
+    let flameGenerator = new FlameGenerator(transforms);
+
+    this.state = { transforms, flameGenerator };
   }
 
   addTransform = () => {
     this.setState( (state, props) => {
       let transforms = [...state.transforms];
       transforms.push( new Transformation([1,0],[0,1],[0,0], [1,1,1]) );
-      return { transforms };
+      const flameGenerator = new FlameGenerator(transforms);
+      return { transforms, flameGenerator };
     });
   }
 
@@ -26,7 +31,7 @@ class App extends React.Component {
       <div className="App">
         <InfoBar />
         <EditPanel transforms={this.state.transforms} addTransform={this.addTransform}/>
-        <PreviewWindow />
+        <PreviewWindow flameGenerator={this.state.flameGenerator} />
       </div>
     );
   }
