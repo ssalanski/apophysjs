@@ -23,27 +23,28 @@ class PreviewWindow extends React.Component {
 
   componentDidMount() {
     if (this.canvasRef.current) {
+      let canvasRef = this.canvasRef.current;
       // shenanigans to prevent parent container resizing just barely larger than the new canvas size
-      const containerWidth = this.canvasRef.current.parentElement.offsetWidth;
-      const containerHeight = this.canvasRef.current.parentElement.offsetHeight;
-      this.canvasRef.current.parentElement.style.width = containerWidth + 'px';
-      this.canvasRef.current.parentElement.style.height = containerHeight + 'px';
-      this.canvasRef.current.width = containerWidth;
-      this.canvasRef.current.height = containerHeight;
+      const containerWidth = canvasRef.parentElement.offsetWidth;
+      const containerHeight = canvasRef.parentElement.offsetHeight;
+      canvasRef.parentElement.style.width = containerWidth + 'px';
+      canvasRef.parentElement.style.height = containerHeight + 'px';
+      canvasRef.width = containerWidth;
+      canvasRef.height = containerHeight;
 
-      const offsetX = this.canvasRef.current.parentElement.offsetLeft;
-      const offsetY = this.canvasRef.current.parentElement.offsetTop;
+      const offsetX = canvasRef.parentElement.offsetLeft;
+      const offsetY = canvasRef.parentElement.offsetTop;
       
-      const context = this.canvasRef.current.getContext('2d');
+      const context = canvasRef.getContext('2d');
       if (context) {
         this.setState( { context, offsetX, offsetY } );
         // test shapes
         if(context) {
           context.fillRect(5,5,100,100);
-          context.fillRect(this.canvasRef.current.width-5,this.canvasRef.current.height-5,-100,-100);
+          context.fillRect(canvasRef.width-5,canvasRef.height-5,-100,-100);
           context.fillStyle = 'white';
-          context.fillRect(5,this.canvasRef.current.height-5,100,-100);
-          context.fillRect(this.canvasRef.current.width-5,5,-100,100);
+          context.fillRect(5,canvasRef.height-5,100,-100);
+          context.fillRect(canvasRef.width-5,5,-100,100);
         }
       }
     }
