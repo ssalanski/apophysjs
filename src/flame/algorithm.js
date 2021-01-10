@@ -1,26 +1,30 @@
 
+// weights must be non negative and sum to 1
+function weightedRandomSelection(itemsAndWeights) {
+  const totalWeight = itemsAndWeights.reduce( (t,item) => { return t + item.weight; }, 0 );
+  const rand = Math.random() * totalWeight;
+  let cumWeight = 0;
+  for (const item of itemsAndWeights) {
+    cumWeight += item.weight;
+    if (rand <= cumWeight)
+      return item;
+  }
+  console.log('uh oh');
+}
+
 export default class FlameGenerator {
   constructor(transforms) {
     this.transforms = transforms;
   }
-
-  setView({x0,y0,xw,yh}, [offsetX,offsetY,width,height]) {
-    this.viewTransform = ([x,y]) => {
-      return [ (x-x0)/xw*width - offsetX, (y-y0)/yh*height - offsetY ];
-    }
-  }
   
-  genPts = function*() {
-    const samples=1<<10;
-    const iterations=16;
+  genPts = function*(iterations=16,samples=1<<8) {
     for(let sample=0;sample<samples;sample++) {
+      // TODO: should this be randomly seeded or start at zero?
       let pt = [Math.random()*2-1,Math.random()*2-1,[1,1,1]];
       for(let iteration=0;iteration<iterations;iteration++) {
-        for (let transform of this.transforms) {
-          pt = transform.transform(pt);
-        }
+        const chosenTransform = weightedRandomSelection(this.transforms);
+        pt = chosenTransform.transform(pt);
       }
-      pt = this.viewTransform(pt.slice(0,2));
       yield pt;
     }
   }

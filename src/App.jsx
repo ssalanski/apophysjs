@@ -10,7 +10,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     let transforms = new Array();
-    transforms.push( new Transformation([1,0],[0,1],[0,0],[1,0,0]) );
+    transforms.push( new Transformation([.5,0],[0,.5],[1,0], [1,0,0], 3) );
+    transforms.push( new Transformation([.5,0],[0,.5],[0,1], [1,0,0], 2) );
+    transforms.push( new Transformation([.5,0],[0,.5],[0,0], [1,0,0], 1) );
 
     let flameGenerator = new FlameGenerator(transforms);
 
@@ -20,7 +22,8 @@ class App extends React.Component {
   addTransform = () => {
     this.setState( (state, props) => {
       let transforms = [...state.transforms];
-      transforms.push( new Transformation([1,0],[0,1],[0,0], [1,1,1]) );
+      // TODO: switch back to no-op transformation added by default, once xform edit capability added
+      transforms.push( new Transformation([-.25,.25],[.25,-.25],[0,0], [1,1,1], 1) );
       const flameGenerator = new FlameGenerator(transforms);
       return { transforms, flameGenerator };
     });
