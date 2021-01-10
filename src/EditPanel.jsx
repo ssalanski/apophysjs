@@ -60,7 +60,6 @@ function VariationQuickView(props) {
 
 function ColorQuickView(props) {
   const color = `rgb(${props.color[0]*255},${props.color[1]*255},${props.color[2]*255})`;
-  console.log(color);
   return <div style={{backgroundColor: color, width:"32px"}}>.</div>;
 }
 
