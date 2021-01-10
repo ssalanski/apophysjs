@@ -1,4 +1,4 @@
-import Variation, { SierpinskyOne, SierpinskyTwo, SierpinskyThree } from './Variation.js'
+import Variation, { SierpinskyOne, SierpinskyTwo, SierpinskyThree } from './variations.js'
 
 export default class Transformation {
   constructor(xvec, yvec, ovec, color) {

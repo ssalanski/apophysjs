@@ -2,8 +2,8 @@ import React from 'react';
 import InfoBar from './InfoBar.js';
 import EditPanel from './EditPanel.js';
 import PreviewWindow from './PreviewWindow.js';
-import Transformation from './Transformation.js';
-import FlameGenerator from './flame.js';
+import Transformation from './flame/transformations.js';
+import FlameGenerator from './flame/algorithm.js';
 import './App.css';
 
 class App extends React.Component {
